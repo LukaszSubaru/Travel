@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Plan Zwiedzania Budapesztu - Ruman Travel Agency</title>
+    <style>
+        /* ... (zachowaj wcześniejsze style CSS) ... */
+        /* Dodaj styl dla mapy */
+        #map {
+            height: 500px;
+            width: 100%;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <img src="LINK_DO_LOGO" alt="Ruman Travel Agency">
+    </div>
+    <h1>Plan Zwiedzania Budapesztu</h1>
+</header>
+
+<nav>
+    <a href="#dzien1">Dzień 1</a>
+    <a href="#dzien2">Dzień 2</a>
+    <a href="#dzien3">Dzień 3</a>
+    <a href="#mapa">Mapa</a>
+    <a href="#uwagi">Uwagi</a>
+</nav>
+
+<div class="container">
+    <!-- ... (zachowaj resztę planu bez zmian) ... -->
+
+    <!-- Sekcja mapy -->
+    <div id="mapa">
+        <h2>Mapa z zaznaczonymi atrakcjami</h2>
+        <div id="map"></div>
+    </div>
+
+    <!-- ... (reszta strony) ... -->
+</div>
+
+<footer>
+    <p>Życzymy niezapomnianego pobytu w Budapeszcie pełnego wrażeń i smaków!</p>
+    <p>&copy; 2024 Ruman Travel Agency</p>
+</footer>
+
+<!-- Dodaj skrypt Google Maps API -->
+<script src="https://maps.googleapis.com/maps/api/js?key=TWÓJ_KLUCZ_API&callback=initMap&libraries=&v=weekly" async defer></script>
+<script>
+    function initMap() {
+        // Centrum mapy - Budapeszt
+        var budapest = {lat: 47.4979, lng: 19.0402};
+
+        // Inicjalizacja mapy
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 13,
+            center: budapest
+        });
+
+        // Lista atrakcji z ich współrzędnymi
+        var atrakcje = [
+            {
+                nazwa: 'Bazylika św. Stefana',
+                pozycja: {lat: 47.5009, lng: 19.0535}
+            },
+            {
+                nazwa: 'Parlament Węgierski',
+                pozycja: {lat: 47.5076, lng: 19.0452}
+            },
+            {
+                nazwa: 'Most Łańcuchowy',
+                pozycja: {lat: 47.4980, lng: 19.0413}
+            },
+            {
+                nazwa: 'Wzgórze Zamkowe',
+                pozycja: {lat: 47.4969, lng: 19.0399}
+            },
+            {
+                nazwa: 'Baszta Rybacka',
+                pozycja: {lat: 47.5023, lng: 19.0346}
+            },
+            {
+                nazwa: 'Kościół Macieja',
+                pozycja: {lat: 47.5010, lng: 19.0348}
+            },
+            {
+                nazwa: 'Hala Targowa',
+                pozycja: {lat: 47.4860, lng: 19.0615}
+            },
+            {
+                nazwa: 'Łaźnie Gellérta',
+                pozycja: {lat: 47.4840, lng: 19.0534}
+            },
+            {
+                nazwa: 'Wzgórze Gellérta',
+                pozycja: {lat: 47.4869, lng: 19.0456}
+            },
+            {
+                nazwa: 'Wyspa Małgorzaty',
+                pozycja: {lat: 47.5316, lng: 19.0460}
+            }
+        ];
+
+        // Dodanie markerów na mapie
+        atrakcje.forEach(function(atrakcja) {
+            var marker = new google.maps.Marker({
+                position: atrakcja.pozycja,
+                map: map,
+                title: atrakcja.nazwa
+            });
+
+            // Dodanie informacji o atrakcji po kliknięciu na marker
+            var infowindow = new google.maps.InfoWindow({
+                content: '<strong>' + atrakcja.nazwa + '</strong>'
+            });
+
+            marker.addListener('click', function() {
+                infowindow.open(map, marker);
+            });
+        });
+    }
+</script>
+
+</body>
+</html>
